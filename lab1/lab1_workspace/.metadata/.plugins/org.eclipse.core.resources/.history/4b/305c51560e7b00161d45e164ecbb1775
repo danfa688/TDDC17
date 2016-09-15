@@ -18,7 +18,6 @@ class Node
 	public int pathCost;
 	public Vector<Integer> actions; 
 
-	// Adds action to the nodes action-vector, also updates the path cost
 	public void addAction(int possibleAction){
 		switch(possibleAction){
 		case 0: //Go straight
@@ -44,7 +43,6 @@ class Node
 		}
 	}
 
-	// Updates position and direction of node depending on action
 	public void updateState(int action){
 		switch(action){
 		case 0:	//Forward
@@ -96,7 +94,6 @@ class Node
 		this.actions = new Vector<Integer>(another.actions);
 	}
 
-	// Node constructor
 	public Node(int x,int y,int dir){
 		this.xPos = x;
 		this.yPos = y;
@@ -105,14 +102,12 @@ class Node
 		this.actions = new Vector<Integer>();
 	}
 
-	// Compare this node with another node by position and direction
 	public boolean compareNodes(Node another){
 		return (this.xPos == another.xPos && 
 				this.yPos == another.yPos &&
 				this.direction == another.direction);
 	}
 
-	// Returns true if this node has the same position, direction and has a lower path cost
 	public boolean childLowerCost(Node another){
 		return (this.xPos == another.xPos && 
 				this.yPos == another.yPos &&
@@ -226,7 +221,8 @@ class MyAgentProgram implements AgentProgram {
 	public Vector<Integer> actionSequence = new Vector<Integer>();
 	public boolean goingHome = false;
 
-	// Returns the node with minimal path cost from the frontier
+
+
 	private Node popMinCost(Vector<Node> frontier){
 		int minPathCost = frontier.elementAt(0).pathCost;
 		int index=0;
@@ -239,7 +235,6 @@ class MyAgentProgram implements AgentProgram {
 		return frontier.remove(index);
 	}
 
-	//	Checks if goal is reached, 0 = Unknown (?), 1 = Home(H)
 	private boolean GoalTest(Node myNode, int goal){
 		if (goal == 0){	//Unknown
 			return state.getWorldInfo(myNode.xPos, myNode.yPos) == state.UNKNOWN;
@@ -248,6 +243,7 @@ class MyAgentProgram implements AgentProgram {
 
 		}
 	}
+
 
 	// moves the Agent to a random start position
 	// uses percepts to update the Agent position - only the position, other percepts are ignored
@@ -281,7 +277,6 @@ class MyAgentProgram implements AgentProgram {
 		}
 	}
 
-	//	Search after next unknown (or home if goal = 1)
 	private Vector<Integer> findNext(int goal){
 		Vector<Node> frontier = new Vector<Node>();
 		Vector<Node> explored = new Vector<Node>();
@@ -326,7 +321,6 @@ class MyAgentProgram implements AgentProgram {
 		return new Vector<Integer>();
 	}
 
-	//	Returns true if the action is possible, ie no walking through walls
 	private boolean possibleAction(int action, int xpos, int ypos, int dir){
 		switch(action){
 		case 0:	//Forward
@@ -370,7 +364,6 @@ class MyAgentProgram implements AgentProgram {
 		return true;
 	}
 
-	// Walks through the map and finds the size
 	private Action findMapSize(boolean bump){
 		if (bump)
 		{
