@@ -5,8 +5,41 @@ public class StateAndReward {
 	public static String getStateAngle(double angle, double vx, double vy) {
 
 		/* TODO: IMPLEMENT THIS FUNCTION */
-
+		//Left negative -3 max
+		//Right positive 3 max
 		String state = "OneStateToRuleThemAll";
+		
+		int val = discretize2(angle, 8, -Math.PI, Math.PI);
+		
+		switch (val) {
+        	case 0: 
+        		state = "Zero";
+        		break;
+        	case 1: 
+        		state = "One";
+        		break;
+        	case 2: 
+        		state = "Two";
+        		break;
+        	case 3: 
+        		state = "Three";
+        		break;
+        	case 4: 
+        		state = "Four";
+        		break;
+        	case 5: 
+        		state = "Five";
+        		break;
+        	case 6: 
+        		state = "Six";
+        		break;
+        	case 7: 
+        		state = "Seven";
+        		break;
+        	default: 
+        		state = "Zero";
+        		break;
+		}
 		
 		return state;
 	}
@@ -15,9 +48,11 @@ public class StateAndReward {
 	public static double getRewardAngle(double angle, double vx, double vy) {
 
 		/* TODO: IMPLEMENT THIS FUNCTION */
-		
+
 		double reward = 0;
 
+		reward = Math.abs(1-Math.abs(angle)/Math.PI);
+		
 		return reward;
 	}
 
@@ -26,8 +61,71 @@ public class StateAndReward {
 
 		/* TODO: IMPLEMENT THIS FUNCTION */
 
-		String state = "OneStateToRuleThemAll2";
+		String state = "OneStateToRuleThemAll";
 		
+		int valangle = discretize2(angle, 8, -Math.PI, Math.PI);
+		int valvx = discretize2(vx, 2, -10, 10);
+		int valvy = discretize2(vy, 4, -10, 10);
+		
+		switch (valangle) {
+        	case 0: 
+        		state = "Zero";
+        		break;
+        	case 1: 
+        		state = "One";
+        		break;
+        	case 2: 
+        		state = "Two";
+        		break;
+        	case 3: 
+        		state = "Three";
+        		break;
+        	case 4: 
+        		state = "Four";
+        		break;
+        	case 5: 
+        		state = "Five";
+        		break;
+        	case 6: 
+        		state = "Six";
+        		break;
+        	case 7: 
+        		state = "Seven";
+        		break;
+        	default: 
+        		state = "Zero";
+        		break;
+		}
+		// Add to state vx
+		switch (valvx) {
+	    	case 0: 
+	    		state += "Zero";
+	    		break;
+	    	case 1: 
+	    		state += "One";
+	    		break;
+	    	default: 
+	    		state += "Zero";
+	    		break;
+		}
+		// Add to state vy
+		switch (valvy) {
+	    	case 0: 
+	    		state += "Zero";
+	    		break;
+	    	case 1: 
+	    		state += "One";
+	    		break;
+	    	case 2: 
+	    		state += "Two";
+	    		break;
+	    	case 3: 
+	    		state += "Three";
+	    		break;
+	    	default: 
+	    		state += "Zero";
+	    		break;
+		}
 		return state;
 	}
 
@@ -36,9 +134,20 @@ public class StateAndReward {
 
 		/* TODO: IMPLEMENT THIS FUNCTION */
 		
-		double reward = 0;
-
-		return reward;
+		double rewardangle;
+		double rewardvx = 0;
+		double rewardvy = 0;
+		int maxvx = 10;
+		int maxvy = 10;
+		rewardangle = Math.abs(1-(Math.abs(angle)/Math.PI));
+		if(Math.abs(vx) < maxvx){
+			rewardvx = Math.abs(1-(Math.abs(vx)/maxvx));
+		}
+		if(Math.abs(vy) < maxvy){
+			rewardvy = Math.abs(1-(Math.abs(vy)/maxvy));
+		}
+		
+		return 0.45*rewardangle+0.1*rewardvx+0.45*rewardvy;
 	}
 
 	// ///////////////////////////////////////////////////////////
