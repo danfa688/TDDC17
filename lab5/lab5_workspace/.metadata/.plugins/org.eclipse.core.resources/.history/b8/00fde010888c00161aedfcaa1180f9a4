@@ -139,12 +139,12 @@ public class StateAndReward {
 		double rewardvy = 0;
 		int maxvx = 10;
 		int maxvy = 10;
-		rewardangle = Math.pow(1-(Math.abs(angle)/Math.PI),4);
+		rewardangle = Math.abs(1-(Math.abs(angle)/Math.PI));
 		if(Math.abs(vx) < maxvx){
-			rewardvx = Math.pow(1-(Math.abs(vx)/maxvx),4);
+			rewardvx = Math.abs(1-(Math.abs(vx)/maxvx));
 		}
 		if(Math.abs(vy) < maxvy){
-			rewardvy = Math.pow(1-(Math.abs(vy)/maxvy),4);
+			rewardvy = Math.abs(1-(Math.abs(vy)/maxvy));
 		}
 		
 		return 0.45*rewardangle+0.1*rewardvx+0.45*rewardvy;
